@@ -1,26 +1,67 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #17181a;
+  --panel: #1f2124;
+  --panel-2: #252729;
+  --line: #34373a;
+  --amber: #e8a33d;
+  --amber-dim: #8a6626;
+  --bone: #f1ede3;
+  --muted: #8b8b85;
+  --green: #7cbf6e;
+  --red: #d9645b;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-amber: var(--amber);
+  --color-amber-dim: var(--amber-dim);
+  --color-bone: var(--bone);
+  --color-muted: var(--muted);
+  --color-green: var(--green);
+  --color-red: var(--red);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jbmono);
+  --font-display: var(--font-oswald);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--bone);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* "Paid" checkbox slides in when a day is marked off. */
+@keyframes paid-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+.paid-in {
+  animation: paid-in 0.22s ease-out;
+}
+
+/* Number inputs: hide spinners for a cleaner mobile feel (steppers stay
+   available via inputmode="decimal" keyboards). */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
