@@ -429,20 +429,18 @@ export default function LedgerApp() {
       ? `${data.ownerName}_`
       : "";
 
-  const exportData = () => {
+  const exportData = async () => {
     const db = buildDbObject(data);
     const blob = new Blob([JSON.stringify(db, null, 2)], {
       type: "application/json",
     });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${namePrefix}cornice_ledger_${fileStamp()}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    toast(`Saved ${a.download}`, 2600);
+    const name = `${namePrefix}cornice_ledger.json`;
+    const used = await saveBlob(blob, name, {
+      mime: "application/json",
+      description: "JSON backup",
+      extensions: [".json"],
+    });
+    if (used) toast(`Saved ${used}`, 2600);
   };
 
   const onImportFile = async (file: File) => {
